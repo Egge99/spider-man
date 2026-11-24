@@ -1,0 +1,21 @@
+name: Review dependencies
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  dependency-review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read # Påkrevd for å lese repoet
+      pull-requests: write # Påkrevd for å kommentere i PR-en
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Perform dependency review
+        uses: actions/dependency-review-action@bbc44d14a204704ccc493733616cd1e93a0321ec # v5.0.1
+        with:
+          comment-summary-in-pr: always
+          fail-on-severity: moderate
